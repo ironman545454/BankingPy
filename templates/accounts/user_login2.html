@@ -1,0 +1,122 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BANK &mdash; BANK Sign In Form </title>
+
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <div class="main">
+
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="{% static 'images/signin-image.jpg' %}" alt="sing up image"></figure>
+                       <a href="{% url 'accounts:user_registration' %}" class="signup-image-link">Create an account</a>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign In</h2>
+    			 <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        			{% csrf_token %}
+        			{% for hidden_field in form.hidden_fields %}
+            				{{ hidden_field.errors }}
+            				{{ hidden_field }}
+        			{% endfor %}
+        			{% for field in form.visible_fields %}
+        	 		<div class="mb-4">
+            				<!--<label class="block text-gray-700 text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+               			 	{{ field.label }}
+           				</label> -->
+                            
+                           
+            			<input class="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="{{ field.name }}" id="{{ field.id_for_label }}" type="{{ field.widget_type }}" required/>
+                           
+       			    </div>
+            				{% if field.errors %}
+                				{% for error in field.errors %}
+                				<p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+               				{% endfor %}
+            				{% endif %}
+        			{% endfor %}
+
+				    <div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term"
+                                    required />
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
+                                    me</label>
+                    </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                                <a href="{% url 'home' %}" input type="home-section" name="home-section" id="home-section" class="form-submit" value="Home" /> Home </a>
+                            </div>        
+                            
+
+
+                            
+    			</form>
+                        {% for message in messages %}
+                            <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md mt-2" role="alert">
+                                <div class="flex">
+                                    <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                                    <div>
+                                        <p class="font-bold">Success!</p>
+                                        <p class="text-sm">{{ message }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+                        <div>
+                            {% for message in messages %}
+                            <h5 style="color:red">{{ message }}</h5>
+
+
+                            {% endfor %}
+                        </div>
+
+                        <div class="social-login">
+                            <span class="social-label">Follow us on</span>
+                            <ul class="socials">
+                                <li><a href="https://www.facebook.com"><i
+                                            class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="https://www.twitter.com"><i
+                                            class="display-flex-center zmdi zmdi-twitter"></i></a>
+                                </li>
+                                <li><a href="https://www.gmail.com"><i
+                                            class="display-flex-center zmdi zmdi-google"></i></a>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
